@@ -1,0 +1,33 @@
+<h1>Sign up</h1>
+
+<%= form_with model: @user, url: registration_path, method: :post, class: "form" do |form| %>
+  <% if @user.errors.any? %>
+    <div class="error-summary">
+      <h2><%= pluralize(@user.errors.count, "error") %> prevented this account from being saved:</h2>
+      <ul>
+        <% @user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email, required: true, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation, required: true %>
+  </div>
+
+  <%= form.submit "Create account" %>
+<% end %>
+
+<p>Already have an account? <%= link_to "Log in", login_path %></p>

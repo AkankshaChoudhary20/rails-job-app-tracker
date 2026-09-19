@@ -1,0 +1,14 @@
+<h1><%= @application.role %> at <%= @application.company %></h1>
+
+<p><span class="<%= status_badge_class(@application.status) %>"><%= status_label(@application.status) %></span></p>
+
+<dl>
+  <dt>Applied on</dt>
+  <dd><%= @application.applied_date.strftime("%B %-d, %Y") %></dd>
+
+  <dt>Notes</dt>
+  <dd><%= simple_format(@application.notes.presence || "No notes yet.") %></dd>
+</dl>
+
+<%= link_to "Edit", edit_application_path(@application) %>
+<%= link_to "Back to applications", applications_path %>

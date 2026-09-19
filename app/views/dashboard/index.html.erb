@@ -1,0 +1,46 @@
+<h1>Dashboard</h1>
+
+<section class="stat-cards">
+  <% Application.statuses.each_key do |status| %>
+    <div class="stat-card status-<%= status %>">
+      <span class="stat-count"><%= @counts_by_status[status] %></span>
+      <span class="stat-label"><%= status_label(status) %></span>
+    </div>
+  <% end %>
+  <div class="stat-card stat-total">
+    <span class="stat-count"><%= @total_count %></span>
+    <span class="stat-label">Total</span>
+  </div>
+</section>
+
+<section class="recent-applications">
+  <div class="section-header">
+    <h2>Most recent applications</h2>
+    <%= link_to "View all", applications_path %>
+  </div>
+
+  <% if @recent_applications.any? %>
+    <table>
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Applied</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @recent_applications.each do |application| %>
+          <tr>
+            <td><%= link_to application.company, application_path(application) %></td>
+            <td><%= application.role %></td>
+            <td><span class="<%= status_badge_class(application.status) %>"><%= status_label(application.status) %></span></td>
+            <td><%= application.applied_date.strftime("%b %-d, %Y") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No applications yet. <%= link_to "Add your first one", new_application_path %>.</p>
+  <% end %>
+</section>

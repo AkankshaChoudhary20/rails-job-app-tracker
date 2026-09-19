@@ -1,0 +1,24 @@
+<%# Each row is its own Turbo Frame, so an inline status change (or a
+    delete) re-renders just this <tr> without touching the rest of the
+    table or reloading the page. %>
+<%= turbo_frame_tag application, tag: :tr, class: "application-row" do %>
+  <td><%= link_to application.company, application_path(application) %></td>
+  <td><%= application.role %></td>
+  <td>
+    <%= form_with url: update_status_application_path(application), method: :patch,
+                  class: "status-form" do |form| %>
+      <%= form.select :status,
+            Application.statuses.keys.map { |s| [status_label(s), s] },
+            { selected: application.status },
+            class: "status-select status-#{application.status}",
+            onchange: "this.form.requestSubmit()" %>
+    <% end %>
+  </td>
+  <td><%= application.applied_date.strftime("%b %-d, %Y") %></td>
+  <td class="row-actions">
+    <%= link_to "Edit", edit_application_path(application) %>
+    <%= button_to "Delete", application_path(application), method: :delete,
+          form: { data: { turbo_confirm: "Delete this application?" } },
+          class: "link-button" %>
+  </td>
+<% end %>

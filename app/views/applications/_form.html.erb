@@ -1,0 +1,39 @@
+<%= form_with model: application, class: "form" do |form| %>
+  <% if application.errors.any? %>
+    <div class="error-summary">
+      <h2><%= pluralize(application.errors.count, "error") %> prevented this application from being saved:</h2>
+      <ul>
+        <% application.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :company %>
+    <%= form.text_field :company, required: true, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :role %>
+    <%= form.text_field :role, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, Application.statuses.keys.map { |s| [status_label(s), s] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :applied_date %>
+    <%= form.date_field :applied_date, required: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :notes %>
+    <%= form.text_area :notes, rows: 5 %>
+  </div>
+
+  <%= form.submit %>
+<% end %>

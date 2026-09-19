@@ -1,0 +1,23 @@
+<div class="section-header">
+  <h1>Applications</h1>
+  <%= link_to "New application", new_application_path, class: "button" %>
+</div>
+
+<table class="applications-table">
+  <thead>
+    <tr>
+      <th>Company</th>
+      <th>Role</th>
+      <th>Status</th>
+      <th>Applied</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="applications">
+    <%= render @applications %>
+  </tbody>
+</table>
+
+<% if @applications.empty? %>
+  <p>No applications yet. <%= link_to "Add your first one", new_application_path %>.</p>
+<% end %>
