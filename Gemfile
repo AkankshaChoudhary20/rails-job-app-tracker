@@ -36,6 +36,8 @@ group :development do
 end
 
 group :test do
+  # Rails 7.1 uses the Minitest 5 runner API.
+  gem "minitest", "~> 5.0"
   gem "capybara"
   gem "selenium-webdriver"
 end
