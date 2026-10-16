@@ -36,9 +36,9 @@ class ApplicationsControllerTest < ActionDispatch::IntegrationTest
   test "update_status rejects an invalid status transition value" do
     application = applications(:alice_applied)
 
-    assert_raises(ArgumentError) do
-      patch update_status_application_path(application), params: { status: "not-a-status" }
-    end
+    patch update_status_application_path(application), params: { status: "not-a-status" }, as: :turbo_stream
+    assert_response :unprocessable_entity
+    assert_equal "applied", application.reload.status
   end
 
   test "create scopes the new application to the current user" do

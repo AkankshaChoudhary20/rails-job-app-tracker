@@ -3,13 +3,13 @@ class Application < ApplicationRecord
 
   # Order matters: it defines the integer values persisted in the
   # `status` column, so once this ships, only append to the end.
-  enum status: {
+  enum :status, {
     applied: 0,
     screening: 1,
     interview: 2,
     offer: 3,
     rejected: 4
-  }
+  }, validate: true
 
   validates :company, presence: true
   validates :role, presence: true

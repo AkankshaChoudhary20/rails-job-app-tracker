@@ -42,7 +42,9 @@ class ApplicationTest < ActiveSupport::TestCase
 
   test "rejects an unknown status value" do
     application = applications(:alice_applied)
-    assert_raises(ArgumentError) { application.status = "ghosted" }
+    application.status = "ghosted"
+    assert_not application.valid?
+    assert_includes application.errors.attribute_names, :status
   end
 
   test ".active scope excludes rejected applications" do

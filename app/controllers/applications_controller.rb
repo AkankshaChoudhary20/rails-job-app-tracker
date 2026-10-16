@@ -46,7 +46,7 @@ class ApplicationsController < ApplicationController
       end
     else
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(@application, partial: "applications/application", locals: { application: @application }) }
+        format.turbo_stream { render turbo_stream: turbo_stream.replace(@application, partial: "applications/application", locals: { application: @application }), status: :unprocessable_entity }
         format.html { redirect_to applications_path, alert: @application.errors.full_messages.to_sentence }
       end
     end
