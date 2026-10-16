@@ -1,0 +1,9 @@
+development:
+  adapter: async
+
+test:
+  adapter: test
+
+# In-process broadcasts match this app's single-process deployment.
+production:
+  adapter: async
